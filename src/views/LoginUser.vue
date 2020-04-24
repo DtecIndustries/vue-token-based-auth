@@ -9,6 +9,8 @@
 
       <button type="submit">Login</button>
 
+      <p v-if="error">{{ error }}</p>
+
       <router-link to="/register">Don't have an account? Register.</router-link>
     </form>
   </div>
@@ -19,7 +21,8 @@ export default {
   data(){
     return {
       email: '',
-      password: ''
+      password: '',
+      error: null
     }
   },
   methods: {
@@ -30,6 +33,9 @@ export default {
       })
       .then(() => {
         this.$router.push({ name: 'dashboard' })
+      })
+      .catch(err => {
+        this.error = err.response.data.error
       })
     }
   }
